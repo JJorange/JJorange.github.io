@@ -3,6 +3,15 @@
   
     
     <entry>
+      <title>first.md</title>
+      <link href="/2018/05/27/first-md/"/>
+      <url>/2018/05/27/first-md/</url>
+      <content type="html"><![CDATA[]]></content>
+      
+      
+    </entry>
+    
+    <entry>
       <title>xo</title>
       <link href="/2018/05/25/xo/"/>
       <url>/2018/05/25/xo/</url>
@@ -27,18 +36,20 @@
       <title>first</title>
       <link href="/2018/05/25/first/"/>
       <url>/2018/05/25/first/</url>
-      <content type="html"><![CDATA[<p>###AAA</p>]]></content>
+      <content type="html"><![CDATA[<h3 id="题目描述：二维数组中的查找"><a href="#题目描述：二维数组中的查找" class="headerlink" title="题目描述：二维数组中的查找"></a>题目描述：二维数组中的查找</h3><p>在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p><p><strong>解</strong>：(利用size函数求出数组的大小，利用两个for函数循环遍历数组，一次比较。因为数组是有序的，所以当数组内容大于target时即可返回false)<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> target, <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="built_in">array</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> hang = <span class="built_in">array</span>.size();</span><br><span class="line">    <span class="keyword">int</span> lie = <span class="built_in">array</span>[<span class="number">0</span>].size();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;hang;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;lie;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">array</span>[i][j] == target)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">array</span>[i][j] &lt; target)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><h4 id="大佬解答"><a href="#大佬解答" class="headerlink" title="大佬解答"></a>大佬解答</h4><h5 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h5><p>矩阵是有序的，从左下角来看，向上数字递减，向右数字递增，</p><ul><li>因此从左下角开始查找，当要查找数字比左下角数字大时。右移</li><li>要查找数字比左下角数字小时，上移</li></ul><p>:<a href="/img/BAFK}904~4GRWZOGV59KU56.png"></a></p><h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Find</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="built_in">array</span>,<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rowCount = <span class="built_in">array</span>.size();</span><br><span class="line">        <span class="keyword">int</span> colCount = <span class="built_in">array</span>[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">int</span> i,j;</span><br><span class="line">        <span class="keyword">for</span>(i=rowCount<span class="number">-1</span>,j=<span class="number">0</span>;i&gt;=<span class="number">0</span>&amp;&amp;j&lt;colCount;)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(target == <span class="built_in">array</span>[i][j])</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span>(target &lt; <span class="built_in">array</span>[i][j])</span><br><span class="line">            &#123;</span><br><span class="line">                i--;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(target &gt; <span class="built_in">array</span>[i][j])</span><br><span class="line">            &#123;</span><br><span class="line">                j++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
       
       <categories>
           
-          <category> w </category>
+          <category> 剑指Offer练习题 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 啦啦 </tag>
+            <tag> 习题 </tag>
+            
+            <tag> 数组 </tag>
             
         </tags>
       
@@ -57,20 +68,6 @@
   
     
     <entry>
-      <title>about</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      <content type="html"><![CDATA[]]></content>
-    </entry>
-    
-    <entry>
-      <title>留言墙</title>
-      <link href="/message/index.html"/>
-      <url>/message/index.html</url>
-      <content type="html"><![CDATA[]]></content>
-    </entry>
-    
-    <entry>
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -78,9 +75,23 @@
     </entry>
     
     <entry>
+      <title>about</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+    
+    <entry>
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      <content type="html"><![CDATA[]]></content>
+    </entry>
+    
+    <entry>
+      <title>留言墙</title>
+      <link href="/message/index.html"/>
+      <url>/message/index.html</url>
       <content type="html"><![CDATA[]]></content>
     </entry>
     
