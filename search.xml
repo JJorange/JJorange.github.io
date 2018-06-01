@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>剑指offer（二）</title>
+      <link href="/2018/06/01/%E5%89%91%E6%8C%87offer%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+      <url>/2018/06/01/%E5%89%91%E6%8C%87offer%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="空格替换"><a href="#空格替换" class="headerlink" title="空格替换"></a>空格替换</h3><p>请实现一个函数，将一个字符串中的空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</p><a id="more"></a><h4 id="我的解：从前往后替换会让后面的字符存在被覆盖的风险，所以考虑从后往前替换。先遍历字符串，找出空格的数量，然后向前拷贝，遇到空格替换成“-20”"><a href="#我的解：从前往后替换会让后面的字符存在被覆盖的风险，所以考虑从后往前替换。先遍历字符串，找出空格的数量，然后向前拷贝，遇到空格替换成“-20”" class="headerlink" title="我的解：从前往后替换会让后面的字符存在被覆盖的风险，所以考虑从后往前替换。先遍历字符串，找出空格的数量，然后向前拷贝，遇到空格替换成“%20”."></a>我的解：从前往后替换会让后面的字符存在被覆盖的风险，所以考虑从后往前替换。先遍历字符串，找出空格的数量，然后向前拷贝，遇到空格替换成“%20”.</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">replaceSpace</span><span class="params">(<span class="keyword">char</span> *str,<span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">        <span class="comment">//遍历一边字符串找出空格的数量</span></span><br><span class="line">        <span class="keyword">if</span>(str==<span class="literal">NULL</span>||length&lt;<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> oldnumber=<span class="number">0</span>;<span class="comment">//记录以前的长度</span></span><br><span class="line">        <span class="keyword">int</span> replacenumber=<span class="number">0</span>;<span class="comment">//记录空格的数量</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(str[i]!=<span class="string">'\0'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">               oldnumber++;</span><br><span class="line">               <span class="keyword">if</span>(str[i]==<span class="string">' '</span>)</span><br><span class="line">                   &#123;</span><br><span class="line">                     replacenumber++;</span><br><span class="line">                   &#125;</span><br><span class="line">                  i++; </span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> newlength=oldnumber+replacenumber*<span class="number">2</span>;<span class="comment">//插入后的长度</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(newlength&gt;length)<span class="comment">//如果计算后的长度大于总长度就无法插入</span></span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> pOldlength=oldnumber; <span class="comment">//注意不要减一因为隐藏个‘\0’也要算里</span></span><br><span class="line">        <span class="keyword">int</span> pNewlength=newlength;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(pOldlength&gt;=<span class="number">0</span>&amp;&amp;pNewlength&gt;pOldlength)<span class="comment">//放字符</span></span><br><span class="line">            &#123;</span><br><span class="line">              <span class="keyword">if</span>(str[pOldlength]==<span class="string">' '</span>) <span class="comment">//碰到空格就替换</span></span><br><span class="line">                  &#123;</span><br><span class="line">                     str[pNewlength--]=<span class="string">'0'</span>;</span><br><span class="line">                     str[pNewlength--]=<span class="string">'2'</span>;</span><br><span class="line">                     str[pNewlength--]=<span class="string">'%'</span>;</span><br><span class="line">                     </span><br><span class="line">                  &#125;</span><br><span class="line">               <span class="keyword">else</span> <span class="comment">//不是空格就把pOldlength指向的字符装入pNewlength指向的位置</span></span><br><span class="line">               &#123;</span><br><span class="line">                    str[pNewlength--]=str[pOldlength];</span><br><span class="line">                   </span><br><span class="line">               &#125;</span><br><span class="line">             pOldlength--; <span class="comment">//不管是if还是elsr都要把pOldlength前移      </span></span><br><span class="line">           &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      <categories>
+          
+          <category> 剑指Offer练习题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 习题 </tag>
+            
+            <tag> 字符串 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>剑指offer（一）</title>
       <link href="/2018/05/27/%E5%89%91%E6%8C%87offer%EF%BC%88%E4%B8%80%EF%BC%89/"/>
       <url>/2018/05/27/%E5%89%91%E6%8C%87offer%EF%BC%88%E4%B8%80%EF%BC%89/</url>
@@ -75,13 +98,6 @@
     </entry>
     
     <entry>
-      <title>留言墙</title>
-      <link href="/message/index.html"/>
-      <url>/message/index.html</url>
-      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
-    </entry>
-    
-    <entry>
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -92,6 +108,13 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    </entry>
+    
+    <entry>
+      <title>留言墙</title>
+      <link href="/message/index.html"/>
+      <url>/message/index.html</url>
       <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
     </entry>
     
